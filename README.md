@@ -52,7 +52,7 @@ node server.js
 
 ### ** 5 Rodar o Frontend**
 ```sh
-ng serve
+npm start
 ```
 Acesse no navegador: `http://localhost:4200`
 

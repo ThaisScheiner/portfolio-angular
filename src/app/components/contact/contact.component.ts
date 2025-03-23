@@ -25,17 +25,21 @@ export class ContactComponent {
   }
 
   onSubmit() {
-    if (this.contactForm.valid) {
-      this.contactService.sendEmail(this.contactForm.value).subscribe({
-        next: () => {
-          this.contactForm.reset();
-          this.openDialog('Mensagem de contato enviada com sucesso!');
-        },
-        error: () => {
-          this.openDialog('Erro ao enviar mensagem. Tente novamente.');
-        }
-      });
+    if (this.contactForm.invalid) {
+      this.openDialog('Obrigatório preencher todos os campos antes de enviar a mensagem.');
+      this.contactForm.markAllAsTouched();
+      return;
     }
+
+    this.contactService.sendEmail(this.contactForm.value).subscribe({
+      next: () => {
+        this.contactForm.reset();
+        this.openDialog('Mensagem de contato enviada com sucesso!');
+      },
+      error: () => {
+        this.openDialog('Erro ao enviar mensagem. Tente novamente.');
+      }
+    });
   }
 
   openDialog(message: string) {
